@@ -26,6 +26,15 @@
 </head>
 <body>
   <h1>🔎 Search trong app Bing</h1>
+
+  <div style="border:1.5px dashed #1f9d63;border-radius:12px;padding:12px 12px 4px;margin-bottom:18px">
+    <p class="sub" style="color:#e8f2ec"><b>⚠️ TEST ĐƯỜNG MỞ SẴN KẾT QUẢ:</b> bấm lần lượt 4 nút dưới đây (cùng tìm "thời tiết hôm nay"). Nút nào làm app Bing mở ra <b>hiện luôn kết quả</b> thì nhớ SỐ của nó rồi báo lại. Các nút ở danh sách dưới vẫn dùng cách copy + mở app như cũ.</p>
+    <a class="btn testlink" href="bingsearch://search?q=th%E1%BB%9Di%20ti%E1%BA%BFt%20h%C3%B4m%20nay" style="display:flex;align-items:center;gap:10px;margin:0 0 10px;padding:13px 14px;border-radius:12px;border:1px solid #2c4a3a;background:#163023;color:#e8f2ec;text-decoration:none;font-size:15px"><span class="n" style="flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:#b7791f;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center">1</span><span>TEST 1 — bingsearch://search?q=</span></a>
+    <a class="btn testlink" href="bingsearch://results?q=th%E1%BB%9Di%20ti%E1%BA%BFt%20h%C3%B4m%20nay" style="display:flex;align-items:center;gap:10px;margin:0 0 10px;padding:13px 14px;border-radius:12px;border:1px solid #2c4a3a;background:#163023;color:#e8f2ec;text-decoration:none;font-size:15px"><span class="n" style="flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:#b7791f;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center">2</span><span>TEST 2 — bingsearch://results?q=</span></a>
+    <a class="btn testlink" href="bing://search?q=th%E1%BB%9Di%20ti%E1%BA%BFt%20h%C3%B4m%20nay" style="display:flex;align-items:center;gap:10px;margin:0 0 10px;padding:13px 14px;border-radius:12px;border:1px solid #2c4a3a;background:#163023;color:#e8f2ec;text-decoration:none;font-size:15px"><span class="n" style="flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:#b7791f;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center">3</span><span>TEST 3 — bing://search?q=</span></a>
+    <a class="btn testlink" href="sapphire://sidney?q=th%E1%BB%9Di%20ti%E1%BA%BFt%20h%C3%B4m%20nay" style="display:flex;align-items:center;gap:10px;margin:0 0 10px;padding:13px 14px;border-radius:12px;border:1px solid #2c4a3a;background:#163023;color:#e8f2ec;text-decoration:none;font-size:15px"><span class="n" style="flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:#b7791f;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center">4</span><span>TEST 4 — sapphire://sidney?q= (Copilot)</span></a>
+  </div>
+
   <p class="sub">Mỗi nút = <b>copy sẵn truy vấn</b> + <b>mở app Bing</b>. Sang app mà chưa có kết quả sẵn thì chạm ô search → <b>Dán (Paste)</b> → Tìm. Search thật ngay trong app nên chắc chắn tính điểm. App Bing nhớ đăng nhập sẵn tài khoản Microsoft.</p>
   <div id="progress">Đã làm 0/20</div>
   <div id="list"></div>
