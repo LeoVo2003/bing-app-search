@@ -8,56 +8,35 @@
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   body { margin: 0; padding: 16px 14px 40px; font-family: -apple-system, "Segoe UI", Arial, sans-serif; background: #0f1f18; color: #e8f2ec; }
   h1 { font-size: 19px; margin: 4px 0 2px; }
-  h2 { font-size: 15px; margin: 20px 0 8px; color: #7be2a8; }
-  .sub { font-size: 13px; color: #9db8a9; margin: 0 0 6px; line-height: 1.5; }
+  .sub { font-size: 13px; color: #9db8a9; margin: 0 0 6px; line-height: 1.55; }
   #progress { font-size: 15px; font-weight: 700; margin: 10px 0 14px; color: #7be2a8; }
-  a.btn { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left; margin: 0 0 10px; padding: 14px; font-size: 15px; border-radius: 12px; border: 1px solid #2c4a3a; background: #163023; color: #e8f2ec; text-decoration: none; cursor: pointer; }
-  a.btn .n { flex: 0 0 auto; width: 26px; height: 26px; border-radius: 50%; background: #1f9d63; color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
-  a.btn.done { opacity: .45; border-color: #1f9d63; }
-  a.btn.done .n { background: #374151; }
-  a.btn.done .q { text-decoration: line-through; }
-  a.btn.test { border-style: dashed; }
-  .toggle { display: flex; gap: 8px; margin: 8px 0 4px; }
-  .toggle button { flex: 1; padding: 11px; font-size: 14px; border-radius: 10px; border: 1px solid #2c4a3a; background: #12291d; color: #9db8a9; cursor: pointer; }
-  .toggle button.on { background: #1f9d63; color: #fff; border-color: #1f9d63; font-weight: 700; }
+  button.btn { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left; margin: 0 0 10px; padding: 14px; font-size: 15px; border-radius: 12px; border: 1px solid #2c4a3a; background: #163023; color: #e8f2ec; cursor: pointer; font-family: inherit; }
+  button.btn .n { flex: 0 0 auto; width: 26px; height: 26px; border-radius: 50%; background: #1f9d63; color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  button.btn .q { flex: 1; }
+  button.btn .tag { flex: 0 0 auto; font-size: 11.5px; color: #7be2a8; }
+  button.btn.done { opacity: .45; border-color: #1f9d63; }
+  button.btn.done .n { background: #374151; }
+  button.btn.done .q { text-decoration: line-through; }
   .check { display: block; width: 100%; margin-top: 8px; padding: 14px; font-size: 15px; font-weight: 700; border: 0; border-radius: 12px; background: #1f9d63; color: #fff; cursor: pointer; }
   .reset { display: block; width: 100%; margin-top: 10px; padding: 10px; font-size: 13px; border: 1px solid #2c4a3a; border-radius: 12px; background: transparent; color: #9db8a9; cursor: pointer; }
   .note { font-size: 12.5px; color: #8fa89b; line-height: 1.55; margin-top: 14px; }
+  #toast { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%) translateY(80px); background: #1f9d63; color: #fff; font-size: 14px; font-weight: 600; padding: 11px 18px; border-radius: 999px; opacity: 0; transition: all .25s ease; max-width: 92vw; text-align: center; z-index: 9; }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 </style>
 </head>
 <body>
-  <h1>🔎 Search bằng app Bing</h1>
-  <p class="sub">Search trong Safari <b>không</b> tính điểm mobile — phải mở bằng <b>app Bing</b>. Các nút dưới đây nhảy thẳng vào app Bing với sẵn truy vấn. Yêu cầu: đã cài app Bing + đăng nhập tài khoản Microsoft trong app.</p>
-
-  <h2>Bước 0 — Test đường mở app</h2>
-  <p class="sub">Bấm thử Test A trước. Nếu app Bing mở ra và hiện kết quả search "thời tiết hôm nay" là chuẩn. Nếu không nhảy app / báo lỗi thì thử Test B, rồi chọn đúng cách đó ở mục dưới.</p>
-  <a class="btn test" id="testA"><span class="n">A</span><span class="q">Test A — mở app Bing</span></a>
-  <a class="btn test" id="testB"><span class="n">B</span><span class="q">Test B — mở app Bing (đường dự phòng)</span></a>
-  <div class="toggle">
-    <button id="modeA" class="on">Dùng cách A</button>
-    <button id="modeB">Dùng cách B</button>
-  </div>
-
-  <h2>20 lượt search hôm nay (60 điểm)</h2>
-  <div id="progress">Đã bấm 0/20</div>
+  <h1>🔎 Search trong app Bing</h1>
+  <p class="sub">Mỗi nút = <b>copy sẵn truy vấn</b> + <b>mở app Bing</b>. Sang app mà chưa có kết quả sẵn thì chạm ô search → <b>Dán (Paste)</b> → Tìm. Search thật ngay trong app nên chắc chắn tính điểm. App Bing nhớ đăng nhập sẵn tài khoản Microsoft.</p>
+  <div id="progress">Đã làm 0/20</div>
   <div id="list"></div>
   <button class="check" id="btnRewards">Mở Rewards kiểm tra điểm</button>
   <button class="reset" id="btnReset">Đặt lại danh sách hôm nay</button>
-  <p class="note">Mỗi lần bấm, máy nhảy sang app Bing — xem kết quả vài giây rồi vuốt/quay lại Safari bấm tiếp nút sau. Điểm cộng theo đợt: xong hết, đợi vài phút, mở Rewards → Points breakdown xem "Mobile Bing search" (x/60). Danh sách truy vấn tự đổi mỗi ngày.</p>
+  <p class="note">Điểm cộng theo đợt — làm xong hết, đợi 5–10 phút rồi mở Rewards → Points breakdown xem "Mobile Bing search" (x/60). Danh sách truy vấn tự đổi mỗi ngày.</p>
+  <div id="toast"></div>
 
 <script>
 (function () {
-  var SCHEMES = {
-    A: 'bingsearch://search?q=',
-    B: 'bingsearch://?q='
-  };
-  var mode = 'A';
-  try { mode = localStorage.getItem('bms_mode') || 'A'; } catch (e) {}
-  if (!SCHEMES[mode]) mode = 'A';
-
-  var testQuery = encodeURIComponent('thời tiết hôm nay');
-  document.getElementById('testA').setAttribute('href', SCHEMES.A + testQuery);
-  document.getElementById('testB').setAttribute('href', SCHEMES.B + testQuery);
+  var APP_URL = 'bingsearch://?q=';
 
   var cities = ['Hà Nội','Đà Nẵng','TP Hồ Chí Minh','Huế','Cần Thơ','Hải Phòng','Nha Trang','Đà Lạt','Quy Nhơn','Vũng Tàu','Hội An','Phú Quốc'];
   var dishes = ['phở bò','bún chả','cơm tấm','bánh mì pate','gỏi cuốn','bánh flan','chè đậu xanh','mì Quảng','bún bò Huế','cà phê trứng'];
@@ -92,50 +71,61 @@
     if (!set[q]) { set[q] = 1; queries.push(q); }
   }
 
-  var dayKey = 'bmsapp_' + today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+  var dayKey = 'bmsapp4_' + today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
   var done = {};
   try { done = JSON.parse(localStorage.getItem(dayKey) || '{}'); } catch (e) { done = {}; }
 
   var list = document.getElementById('list');
   var progress = document.getElementById('progress');
-  var anchors = [];
+  var toast = document.getElementById('toast');
+  var toastTimer = null;
 
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 2600);
+  }
   function render() {
     var n = Object.keys(done).length;
-    progress.textContent = 'Đã bấm ' + n + '/20' + (n >= 20 ? ' — xong! 🎉' : '');
+    progress.textContent = 'Đã làm ' + n + '/20' + (n >= 20 ? ' — xong! 🎉' : '');
   }
-  function applyMode() {
-    document.getElementById('modeA').className = mode === 'A' ? 'on' : '';
-    document.getElementById('modeB').className = mode === 'B' ? 'on' : '';
-    anchors.forEach(function (a, i) {
-      a.setAttribute('href', SCHEMES[mode] + encodeURIComponent(queries[i]));
-    });
+  function copyText(t) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(t).catch(function () { legacyCopy(t); });
+    }
+    legacyCopy(t);
+    return Promise.resolve();
+  }
+  function legacyCopy(t) {
+    var ta = document.createElement('textarea');
+    ta.value = t;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
   }
 
   queries.forEach(function (q, idx) {
-    var a = document.createElement('a');
-    a.className = 'btn' + (done[idx] ? ' done' : '');
-    a.innerHTML = '<span class="n">' + (idx + 1) + '</span><span class="q"></span>';
-    a.querySelector('.q').textContent = q;
-    a.addEventListener('click', function () {
+    var b = document.createElement('button');
+    b.className = 'btn' + (done[idx] ? ' done' : '');
+    b.innerHTML = '<span class="n">' + (idx + 1) + '</span><span class="q"></span><span class="tag">COPY + MỞ APP</span>';
+    b.querySelector('.q').textContent = q;
+    b.addEventListener('click', function () {
       done[idx] = 1;
       try { localStorage.setItem(dayKey, JSON.stringify(done)); } catch (e) {}
-      a.classList.add('done');
+      b.classList.add('done');
       render();
+      copyText(q).then(function () {
+        showToast('Đã copy: ' + q);
+        setTimeout(function () {
+          window.location.href = APP_URL + encodeURIComponent(q);
+        }, 250);
+      });
     });
-    anchors.push(a);
-    list.appendChild(a);
-  });
-
-  document.getElementById('modeA').addEventListener('click', function () {
-    mode = 'A';
-    try { localStorage.setItem('bms_mode', mode); } catch (e) {}
-    applyMode();
-  });
-  document.getElementById('modeB').addEventListener('click', function () {
-    mode = 'B';
-    try { localStorage.setItem('bms_mode', mode); } catch (e) {}
-    applyMode();
+    list.appendChild(b);
   });
 
   document.getElementById('btnRewards').addEventListener('click', function () {
@@ -144,11 +134,10 @@
   document.getElementById('btnReset').addEventListener('click', function () {
     done = {};
     try { localStorage.removeItem(dayKey); } catch (e) {}
-    anchors.forEach(function (a) { a.classList.remove('done'); });
+    document.querySelectorAll('.btn').forEach(function (b) { b.classList.remove('done'); });
     render();
   });
 
-  applyMode();
   render();
 })();
 </script>
